@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">careGiver</string>
+
+    <string name="login">Login</string>
+    <string name="signup"><u>S\'inscrire</u></string>
+    <string name="loginhere"><u>Connectez-vous ici</u></string>
+    <string name="already">Déjà</string>
+    <string name="report_your_problems">Signalez vos problèmes</string>
+
+    <string name="fname">Prénom</string>
+    <string name="lname">Nom</string>
+    <string name="phone">téléphone</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="passwordr">Confirmez le mot de passe</string>
+    <string name="wilaya">Wilaya</string>
+    <string name="daira">Daira</string>
+    <string name="commune">Commune</string>
+    <string name="detailinfo">informations en détaillées</string>
+    <string name="senderid">sender Id</string>
+
+    <string name="gpslocation">gpsLocalisation</string>
+    <string name="picurl">picUrl</string>
+    <string name="insert_data">insérer des données</string>
+    <string name="todo">TODO</string>
+    <string name="send">Envoyer le rapport</string>
+    <string name="dommages_des_fuites_d_eau">dommages des fuites d eau</string>
+    <string name="fuites_de_gaz">Fuites de Gaz</string>
+    <string name="manque_d_clairage">Manque d éclairage</string>
+    <string name="routes_non_pav_es">Routes non pavées</string>
+    <string name="d_tritus_en_place">Les déchets sont en place</string>
+    <string name="manque_de_poubelle">L insuffisance des packs poubelle</string>
+    <string name="location">get my location</string>
+    <string name="myname">"\u0020""\u0020" "\u0020" "\u0020""\u0020" "\u0020" This App has been Developed by "\u261B" Houari ilies\n  "\u0020""\u0020" "\u0020" "\u0020""\u0020" "\u0020"  For more information here\'s my contact info   "\u261D" </string>
+    <string name="incident">couldn\'t get your gps location ,So Please say the incident place in the detail</string>
+    <string name="emptyFields">Please fill all empty Fields</string>
+    <string name="emptyField">Please fill this Field</string>
+    <string name="PasswordIncorrect">Password Incorrect</string>
+    <string name="addPic">Please Add a picture of the incident</string>
+    <string name="detailInfoEmptyFields">Please add some information about the incident report</string>
+    <string name="progress_detail">Please wait …</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="x">X :</string>
+    <string name="y">Y :</string>
+    <string name="z">Z :</string>
+    <string name="acceleration_sum">Acceleration SUM :</string>
+    <string name="jump">jump :</string>
+    <string name="_0">00</string>
+    <string name="fall">fall :</string>
+    <string name="get_data">get Data</string>
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="addresses">Unable to get street Address</string>
+    <string name="not_Available">Not Available</string>
+    <string name="location_tracked">location is tracked</string>
+    <string name="not_tracking_location">Not tracking location</string>
+    <string name="show_map">show Map</string>
+    <string name="lat">Lat:</string>
+    <string name="lon">lon:</string>
+    <string name="altitude">Altitude:</string>
+    <string name="accuracy">Accuracy:</string>
+    <string name="speed">Speed:</string>
+    <string name="address">Address:</string>
+    <string name="sensor">Sensor:</string>
+    <string name="cell_tower_wifi">Cell Tower + Wifi</string>
+    <string name="updates">Updates:</string>
+    <string name="off">Off</string>
+    <string name="send_data">Send data</string>
+    <string name="get_my_information">Get info</string>
+    <string name="generate_my_qr_code">Gen QRcode</string>
+    <string name="location_updates">Location Updates</string>
+    <string name="gps_savepower">GPS/SavePower</string>
+    <string name="home_page">Home Page</string>
+    <string name="tv_result">tv result</string>
+
+</resources>
