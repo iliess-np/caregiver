@@ -4,12 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
     android:paddingLeft="20dp"
-    android:paddingTop="40dp">
-
+    android:paddingTop="40dp"
+    tools:context=".MainActivity">
     <Button
-        android:id="@+id/btnfetch"
+        android:id="@+id/btnShowMap"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:layout_gravity="right|top"
+        android:text="@string/show_map"
+        android:textColor="#FFFFFF"
+        tools:ignore="ButtonStyle" />
+    <Button
+        android:id="@+id/btnFetchUser"
         android:layout_width="133dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -21,19 +33,100 @@
         android:textColor="#FFFFFF"
         tools:ignore="ButtonStyle" />
 
+    <Button
+        android:id="@+id/btnFetchGPS"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="@string/get_my_information"
+        android:textColor="#FFFFFF"
+        tools:ignore="ButtonStyle" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnFetchAlert"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="@string/get_my_information"
+        android:textColor="#FFFFFF"
+        tools:ignore="ButtonStyle" />
+
+    <TextView
+        android:id="@+id/tv_fname"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+
+    <TextView
+        android:id="@+id/tv_lname"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:textAlignment="center">
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="388dp"
-            tools:ignore="NestedScrolling" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_accuracy"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+
+    <TextView
+        android:id="@+id/tv_gps_locationGPS"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_reportTimeGPS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+
+    <TextView
+        android:id="@+id/tv_alertType"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+
+    <TextView
+        android:id="@+id/tv_gps_locationAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tv_reportTimeAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
 </LinearLayout>
