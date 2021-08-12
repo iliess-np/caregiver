@@ -25,6 +25,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     public static final String KEY_SENDERID = "sender_id";
@@ -42,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            senderId = intent.getExtras().getString("id");
+            senderId = intent.getExtras().getString("sender_id");
         }
-
 
         btnFetchUser = (Button) findViewById(R.id.btnFetchUser);
         btnFetchGPS = (Button) findViewById(R.id.btnFetchGPS);
@@ -61,18 +62,15 @@ public class MainActivity extends AppCompatActivity {
         tv_gps_locationAlert = findViewById(R.id.tv_gps_locationAlert);
         tv_reportTimeAlert = findViewById(R.id.tv_reportTimeAlert);
 
+
         btnShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (gps_locationGPS != null) {
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    intent.putExtra("gps_locationGPS", gps_locationGPS);
-                    startActivity(intent);
-                }else if (gps_locationAlert != null){
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    intent.putExtra("gps_locationGPS", gps_locationAlert);
-                    startActivity(intent);
-                }else {
+                    showMap(gps_locationGPS);
+                } else if (gps_locationAlert != null) {
+                    showMap(gps_locationAlert);
+                } else {
                     Toast.makeText(MainActivity.this, "There no gps_location provided", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -81,62 +79,95 @@ public class MainActivity extends AppCompatActivity {
         btnFetchUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (senderId.equals("")) {
-                    Toast.makeText(MainActivity.this, "Please Enter Detail", Toast.LENGTH_SHORT).show();
-                } else {
-                    String MATCHDATA_URL = "http://helptech29.000webhostapp.com/getDataCareGiver.php";
-                    String KEY_FNAME = "f_name";
-                    String KEY_LNAME = "l_name";
-                    String KEY_PHONE = "phone";
-                    int caseType = 1;
-                    GetMatchData(MATCHDATA_URL, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
-                }
+                fetchUser();
             }
         });
+
         btnFetchGPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (senderId.equals("")) {
-                    Toast.makeText(MainActivity.this, "Please Enter Detail", Toast.LENGTH_SHORT).show();
-                } else {
-                    String MATCHDATA_URL = "http://helptech29.000webhostapp.com/getLocation.php";
-                    String KEY_FNAME = "accuracy";
-                    String KEY_LNAME = "gps_location";
-                    String KEY_PHONE = "reporttime";
-                    int caseType = 2;
-                    GetMatchData(MATCHDATA_URL, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
-                }
+                fetchGPS();
             }
         });
+
         btnFetchAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (senderId.equals("")) {
-                    Toast.makeText(MainActivity.this, "Please Enter Detail", Toast.LENGTH_SHORT).show();
-                } else {
-                    String MATCHDATA_URL = "http://helptech29.000webhostapp.com/getAlertType.php";
-                    String KEY_FNAME = "alert";
-                    String KEY_LNAME = "gps_location";
-                    String KEY_PHONE = "reporttime";
-                    int caseType = 3;
-                    GetMatchData(MATCHDATA_URL, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
-                }
+                fetchAlert();
             }
         });
+
+        long timeNow = System.currentTimeMillis();
+        long timePrv = timeNow + 30000;
+        if (timeNow >= timePrv) {
+            Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("checking for new alert/gps location");
+                    fetchAlert();
+                    fetchGPS();
+                }
+            }, 0, 5000);
+        }
+    }
+
+    private void fetchUser() {
+        if (senderId != null) {
+            String MATCHDATA_URL = "http://helptech29.000webhostapp.com/getDataCareGiver.php";
+            String KEY_FNAME = "f_name";
+            String KEY_LNAME = "l_name";
+            String KEY_PHONE = "phone";
+            int caseType = 1;
+            GetMatchData(MATCHDATA_URL, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
+        } else {
+            Toast.makeText(MainActivity.this, "Please Enter Detail", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void fetchGPS() {
+        if (senderId != null) {
+            String MATCHDATA_URL = "http://helptech29.000webhostapp.com/getLocation.php";
+            String KEY_FNAME = "accuracy";
+            String KEY_LNAME = "gps_location";
+            String KEY_PHONE = "reporttime";
+            int caseType = 2;
+            GetMatchData(MATCHDATA_URL, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
+        } else {
+            Toast.makeText(MainActivity.this, "Please Enter Detail", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void fetchAlert() {
+        if (senderId != null) {
+            String MATCHDATA_URL = "http://helptech29.000webhostapp.com/getAlertType.php";
+            String KEY_FNAME = "alert";
+            String KEY_LNAME = "gps_location";
+            String KEY_PHONE = "reporttime";
+            int caseType = 3;
+            GetMatchData(MATCHDATA_URL, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
+        } else {
+            Toast.makeText(MainActivity.this, "Please Enter Detail", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showMap(String gps_location) {
+        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+        intent.putExtra("gps_location", gps_location);
+        intent.putExtra("sender_id", senderId);
+        if (alertType != null) {
+            intent.putExtra("alert_type", alertType);
+        }
+        startActivity(intent);
     }
 
     //Fetch data
     private void GetMatchData(String MATCHDATA_URL, String KEY_FNAME, String KEY_LNAME, String KEY_PHONE, int caseType) {
-
-
         mProgressDialog = new ProgressDialog(MainActivity.this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setMessage(getString(R.string.progress_detail));
         mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setCancelable(false);
+        mProgressDialog.setCancelable(true);
         mProgressDialog.setProgress(0);
         mProgressDialog.setProgressNumberFormat(null);
         mProgressDialog.setProgressPercentFormat(null);
@@ -147,11 +178,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if (response.trim().equals("success")) {
-
-                            showJSON(response, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
+                            Toast.makeText(MainActivity.this, "There was no response from server", Toast.LENGTH_SHORT).show();
                             mProgressDialog.dismiss();
                         } else {
-
                             showJSON(response, KEY_FNAME, KEY_LNAME, KEY_PHONE, caseType);
                             mProgressDialog.dismiss();
                         }
@@ -200,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                         tv_accuracy.setText(accuracy);
                         tv_gps_locationGPS.setText(gps_locationGPS);
                         tv_reportTimeGPS.setText(reportTimeGPS);
+                        showMap(gps_locationGPS);
                         break;
                     case 3:
                         alertType = jo.getString(KEY_FNAME);
@@ -209,27 +239,16 @@ public class MainActivity extends AppCompatActivity {
                         tv_accuracy.setText(accuracy);
                         tv_gps_locationAlert.setText(gps_locationAlert);
                         tv_reportTimeAlert.setText(reportTimeAlert);
+                        showMap(gps_locationAlert);
                         break;
 
                 }
 
-
-//                final HashMap<String, String> employees = new HashMap<>();
-//                employees.put(KEY_FNAME, "f_name = " + f_name);
-//                employees.put(KEY_LNAME, "l_name = " + l_name);
-//                employees.put(KEY_PHONE, "phone = " + phone);
-//
-//                list.add(employees);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        ListAdapter adapter = new SimpleAdapter(
-//                MainActivity.this, list, R.layout.list_item,
-//                new String[]{KEY_FNAME, KEY_LNAME, KEY_PHONE},
-//                new int[]{R.id.tv_fname, R.id.tv_lname, R.id.tv_phone});
-//
-//        listview.setAdapter(adapter);
+
     }
 
 }

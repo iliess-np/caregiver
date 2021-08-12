@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
                             Log.e("login: sender id ", result);
                             if (!result.equals("phone/email or Password wrong")) {
                                 Intent intent = new Intent(Login.this, MainActivity.class);
-                                intent.putExtra("id", result);
+                                intent.putExtra("sender_id", result);
                                 startActivity(intent);
                                 finish();
                             } else {
