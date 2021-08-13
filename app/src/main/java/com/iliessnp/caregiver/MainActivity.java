@@ -1,8 +1,13 @@
 package com.iliessnp.caregiver;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
     Button btnFetchUser, btnFetchGPS, btnFetchAlert, btnShowMap;
     TextView tv_fName, tv_lName, tv_phone, tv_accuracy, tv_gps_locationGPS, tv_reportTimeGPS, tv_alertType, tv_gps_locationAlert, tv_reportTimeAlert;
     ProgressDialog mProgressDialog;
-    String f_name, l_name, phone, accuracy, gps_locationGPS, reportTimeGPS, alertType, gps_locationAlert, reportTimeAlert, senderId;
+    String f_name, l_name, phone, accuracy, gps_locationGPS, reportTimeGPS, alertType, gps_locationAlert, reportTimeAlert, senderId, alertTypePrev = "";
     boolean firstLaunch = true;
+    Vibrator v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if (intent.getExtras() != null) {
             senderId = intent.getExtras().getString("sender_id");
         }
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         btnFetchUser = (Button) findViewById(R.id.btnFetchUser);
         btnFetchGPS = (Button) findViewById(R.id.btnFetchGPS);
@@ -239,14 +246,45 @@ public class MainActivity extends AppCompatActivity {
                         tv_accuracy.setText(accuracy);
                         tv_gps_locationAlert.setText(gps_locationAlert);
                         tv_reportTimeAlert.setText(reportTimeAlert);
+
                         if (showMapOrNot) {
                             showMap(gps_locationAlert);
                         }
                         break;
                 }
             }
+            vibratePhone();
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void vibratePhone() {
+        Log.d(TAG, "alertType " + alertType);
+        long[] pattern = {0,500, 100, 500, 100, 500, 100, 500, 100, 500};
+        if (alertType != null && !alertType.equals(alertTypePrev)) {
+            // Vibrate for 500 milliseconds
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                for (int i = 0; i < 5; i++) {
+                    v.vibrate(VibrationEffect.createWaveform(pattern, 1));
+                    v.vibrate(VibrationEffect.createOneShot(500,VibrationEffect.DEFAULT_AMPLITUDE));
+                }
+                Log.d(TAG, "LOOK AM HERE ");
+
+            } else {
+                //deprecated in API 26
+                for (int i = 0; i < 5; i++) {
+                    v.vibrate(pattern, 1);
+                    v.vibrate(500);
+
+                }
+                Log.d(TAG, "or HERE ");
+            }
+            alertTypePrev = alertType;
+            Log.d(TAG, "alertType " + alertType);
+
+        } else {
+            v.cancel();
         }
     }
 
@@ -259,5 +297,6 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
+
 
 }

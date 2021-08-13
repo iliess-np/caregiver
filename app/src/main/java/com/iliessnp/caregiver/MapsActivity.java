@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    public static boolean mapsAct;
     private GoogleMap mMap;
     String gps_location,alertType,senderId;
     float lat,lon;
@@ -26,6 +27,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        mapsAct = true;
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -47,6 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnShowHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                mapsAct = false;
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("sender_id", senderId);
 
