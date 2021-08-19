@@ -40,23 +40,13 @@
     <string name="detailInfoEmptyFields">Please add some information about the incident report</string>
     <string name="progress_detail">Please wait …</string>
     <string name="title_activity_maps">Map</string>
-    <string name="x">X :</string>
-    <string name="y">Y :</string>
-    <string name="z">Z :</string>
-    <string name="acceleration_sum">Acceleration SUM :</string>
-    <string name="jump">jump :</string>
     <string name="_0">00</string>
-    <string name="fall">fall :</string>
     <string name="get_data">get Data</string>
-    <string name="save">Save</string>
-    <string name="load">Load</string>
     <string name="addresses">Unable to get street Address</string>
     <string name="not_Available">Not Available</string>
     <string name="location_tracked">location is tracked</string>
     <string name="not_tracking_location">Not tracking location</string>
     <string name="show_map">show Map</string>
-    <string name="lat">Lat:</string>
-    <string name="lon">lon:</string>
     <string name="altitude">Altitude:</string>
     <string name="accuracy">Accuracy:</string>
     <string name="speed">Speed:</string>
@@ -72,5 +62,11 @@
     <string name="gps_savepower">GPS/SavePower</string>
     <string name="home_page">Home Page</string>
     <string name="tv_result">tv result</string>
+    <string name="fetch_alert">Fetch Alert</string>
+    <string name="fetch_gps">Fetch GPS</string>
+    <string name="gps_location">GPS Location:</string>
+    <string name="tv_reportTime">Time of Report:</string>
+    <string name="alertType">Type of Alert:</string>
+    <string name="userName">Patient Name:</string>
 
 </resources>
